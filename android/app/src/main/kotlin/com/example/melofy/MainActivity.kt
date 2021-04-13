@@ -1,4 +1,4 @@
-package com.example.melofy
+package com.ariessa.melofy
 
 import io.flutter.embedding.android.FlutterActivity
 
