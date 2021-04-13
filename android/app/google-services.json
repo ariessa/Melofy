@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "152251373779",
+    "project_id": "melofy-1b47c",
+    "storage_bucket": "melofy-1b47c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152251373779:android:d986f436304c6a2baa1c26",
+        "android_client_info": {
+          "package_name": "com.ariessa.melofy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152251373779-amr5sta2vjualhehe8o3tdgibbbgn73c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6iqX4bA9xvRYJGT4dQBUBr1QMQRj9E74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152251373779-amr5sta2vjualhehe8o3tdgibbbgn73c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
