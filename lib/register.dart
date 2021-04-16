@@ -1,9 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/login.dart';
 import 'package:melofy/miscellaneous.dart'
     show EmailValidator, SizeConfig, ColourConfig;
+import 'package:melofy/record_sound.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -12,9 +15,10 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  String _password;
+  String _name;
   String _email;
-  var dropDownValue = "Male";
+  String _password;
+  String _gender = "Male";
 
 
   @override
@@ -78,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               }
                               return null;
                             },
-                            onSaved: (value) => _email = value,
+                            onSaved: (value) => _name = value,
                             keyboardType: TextInputType.name,
                             decoration: InputDecoration(
                               // labelText: "Name",
@@ -215,16 +219,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 borderSide: new BorderSide(
                                                     color: ColourConfig().frenchPass))
                               ),
-                          value: dropDownValue,
+                          value: _gender,
                           onChanged: (String value) {
                             setState(() {
-                              dropDownValue = value;
+                              _gender = value;
                             });
                           },
                           items: <String>['Male', 'Female']
-                              .map((gender) => DropdownMenuItem(
-                                  value: gender, child: Text(
-                                    "$gender",
+                              .map((_gender) => DropdownMenuItem(
+                                  value: _gender, child: Text(
+                                    "$_gender",
                                     )
                                     ))
                               .toList(),
@@ -259,21 +263,39 @@ class _RegisterPageState extends State<RegisterPage> {
 
                             // Validate will return true if is valid, or false if invalid.
                             if (form.validate()) {
+
+                              // Create user account with _email and _password
                               try {
-                                await auth.FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: _email, password: _password);
-                              } on auth.FirebaseAuthException catch (e) {
-                                if (e.code == 'user-not-found') {
-                                  print('No user found for that email.');
-                                  _showMyDialog(
-                                      context, 'No user found for that email.');
-                                } else if (e.code == 'wrong-password') {
-                                  print(
-                                      'Wrong password provided for that user.');
-                                  _showMyDialog(context,
-                                      'Wrong password provided for that user.');
+                                await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                  email: _email,
+                                  password: _password
+                                );
+
+                                // Add _name as displayName in currentUser's profile 
+                                await FirebaseAuth.instance.currentUser.updateProfile(
+                                  displayName: _name,
+                                ).then((value) => print("Added displayName to user's profile"));
+
+                                // Add a new user document under collection users
+                                FirebaseFirestore.instance.collection('users').add({
+                                  'name': _name,
+                                  'email': _email,
+                                  'gender': _gender
+                                });
+
+                                // Navigate to homepage
+                                Navigator.push(context,MaterialPageRoute(builder: (context) => RecordSound()));
+                              
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'weak-password') {
+                                  print('The password provided is too weak.');
+                                  _showMyDialog(context, 'The password provided is too weak.');
+                                } else if (e.code == 'email-already-in-use') {
+                                  print('The account already exists for that email.');
+                                  _showMyDialog(context, 'The account already exists for that email.');
                                 }
+                              } catch (e) {
+                                print(e);
                               }
                             }
                           }),
@@ -314,7 +336,7 @@ class _RegisterPageState extends State<RegisterPage> {
         return WillPopScope(
             onWillPop: () => Future.value(false),
             child: AlertDialog(
-              title: Text('Invalid Login'),
+              title: Text('Invalid Registration'),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[Text(message)],

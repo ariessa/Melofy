@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/miscellaneous.dart'
     show EmailValidator, SizeConfig, ColourConfig;
+import 'package:melofy/record_sound.dart';
 
 import 'register.dart';
 
@@ -176,6 +177,10 @@ class _LoginPageState extends State<LoginPage> {
                                 await auth.FirebaseAuth.instance
                                     .signInWithEmailAndPassword(
                                         email: _email, password: _password);
+
+                                // Navigate to homepage
+                                Navigator.push(context,MaterialPageRoute(builder: (context) => RecordSound()));
+                                print("Signed in");
                               } on auth.FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
                                   print('No user found for that email.');

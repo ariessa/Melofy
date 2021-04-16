@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:melofy/record_sound.dart';
 import 'login.dart';
 
 Future main() async {
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
                   (BuildContext context, AsyncSnapshot<auth.User> snapshot) {
                 if (snapshot.hasData) {
                   print("There is a user logged in");
-                  return LoginPage();
+                  return RecordSound();
                 } else {
                   return LoginPage();
                 }
