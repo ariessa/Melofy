@@ -20,19 +20,17 @@ The features of this app are as follows:
 
 > **_NOTE I:_**  Refer to this [article](https://android.gadgethacks.com/how-to/android-basics-see-what-kind-processor-you-have-arm-arm64-x86-0168051/) to find out your device's CPU architecture.
 
-2. Check out [Melofy's latest release](https://github.com/ariessa/Melofy/releases/latest).
+2. In [Melofy's latest release](https://github.com/ariessa/Melofy/releases/latest), expand the Assets section.
 
-3. In Melofy's latest release page, expand the Assets section.
+3. Download the specific release APK based on your device's CPU architecture and install it.
 
-4. Download the specific release APK based on your device's CPU architecture and install it.
-
-+ For `ARM`, use _app-armeabi-v7a-debug.apk_
-+ For `ARM64`, use _app-arm64-v8a-debug.apk_
-+ For `x86_64`, use _app-x86_64-debug.apk_
++ For `ARM`, use APK endig with _armeabi-v7a.apk_
++ For `ARM64`, use APK ending with _arm64-v8a.apk_
++ For `x86_64`, use APK ending with _x86_64.apk_
 
 Or, you can download the fat APK that can be installed on `ARM`, `ARM64`, and `x86_64`.
 
-+ The Fat APK is _app-universal-debug.apk_
++ The Fat APK is the APK ending with _fat.apk_
 
 > **_WARNING I:_** There is no apk for x86 Android. This is because Flutter does not currently support building for x86 Android. Refer to this [issue](https://github.com/flutter/flutter/issues/9253) on Github.
 
