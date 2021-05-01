@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/miscellaneous.dart'
     show EmailValidator, SizeConfig, ColourConfig;
-import 'package:melofy/record_sound.dart';
+import 'package:melofy/record_audio.dart';
 
 import 'register.dart';
 
@@ -179,7 +179,9 @@ class _LoginPageState extends State<LoginPage> {
                                         email: _email, password: _password);
 
                                 // Navigate to homepage
-                                Navigator.push(context,MaterialPageRoute(builder: (context) => RecordSound()));
+                               // Navigator.push(context,MaterialPageRoute(builder: (context) => RecordAudio()));
+                                Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) => RecordAudio()));
                                 print("Signed in");
                               } on auth.FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {

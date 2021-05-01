@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:melofy/record_sound.dart';
+import 'package:melofy/generating_melody.dart';
+import 'package:melofy/record_audio.dart';
+import 'package:melofy/view_recorded_audio.dart';
 import 'login.dart';
 
 Future main() async {
@@ -34,12 +36,13 @@ class MyApp extends StatelessWidget {
               stream: auth.FirebaseAuth.instance.authStateChanges(),
               builder:
                   (BuildContext context, AsyncSnapshot<auth.User> snapshot) {
-                if (snapshot.hasData) {
-                  print("There is a user logged in");
-                  return RecordSound();
-                } else {
-                  return LoginPage();
-                }
+                // if (snapshot.hasData) {
+                //   print("There is a user logged in");
+                //   return RecordAudio();
+                // } else {
+                //   return LoginPage();
+                // }
+                return GeneratingMelody();
               },
             )));
   }

@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/login.dart';
 import 'package:melofy/miscellaneous.dart'
     show EmailValidator, SizeConfig, ColourConfig;
-import 'package:melofy/record_sound.dart';
+import 'package:melofy/record_audio.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -284,7 +283,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 });
 
                                 // Navigate to homepage
-                                Navigator.push(context,MaterialPageRoute(builder: (context) => RecordSound()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => RecordAudio()));
                               
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'weak-password') {

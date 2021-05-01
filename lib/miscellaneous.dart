@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:melofy/main.dart';
 
 // Extension method for String to check for email validity
 extension EmailValidator on String {
   bool isValidEmail() {
     return RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(this);
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+      .hasMatch(this);
   }
 }
 
@@ -65,7 +68,7 @@ class LoadingCircle extends StatelessWidget {
 class ScreenProgress extends StatelessWidget {
   final int ticks;
 
-  ScreenProgress({@required this.ticks});
+  ScreenProgress({this.ticks});
 
   @override
   Widget build(BuildContext context) {
@@ -210,4 +213,38 @@ class ScreenProgress extends StatelessWidget {
       width: SizeConfig.blockSizeHorizontal * 11.8,
     );
   }
+}
+
+enum ConfirmAction { CANCEL, CONFIRM }
+
+Future<ConfirmAction> _asyncConfirmDialog(BuildContext context) async {
+  return showDialog<ConfirmAction>(
+    context: context,
+    barrierDismissible: false, // user must tap button to close dialog!
+    builder: (BuildContext context) {
+      return WillPopScope(
+          onWillPop: () => Future.value(false),
+          child: AlertDialog(
+            title: Text('Log Out'),
+            content: const Text('Are you sure you want to log out?'),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Navigator.of(context).pop(ConfirmAction.CANCEL);
+                },
+              ),
+              FlatButton(
+                child: const Text('CONFIRM'),
+                onPressed: () async {
+                  await auth.FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pop(ConfirmAction.CONFIRM);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyApp()));
+                },
+              )
+            ],
+          ));
+    },
+  );
 }
