@@ -87,6 +87,8 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
   bool useThisAudio = false;
   bool deleteThisAudio = false;
 
+  String _durationOfRecording = "";
+
   _buildCard({
     Config config,
     Color backgroundColor = Colors.transparent,
@@ -166,6 +168,9 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
   @override
   void initState() {
     super.initState();
+    getDuration();
+    _endPlayerTxt = _durationOfRecording;
+    print("_durationOfRecording: $_endPlayerTxt");
     init();
   }
 
@@ -193,15 +198,37 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
   }
 
   Future<void> getDuration() async {
-        var path = widget.filePath;
-        var d = path != null ? await flutterSoundHelper.duration(path) : null;
-        _duration = d != null ? d.inMilliseconds / 1000.0 : null;
+    var path = widget.filePath;
+    var d = path != null ? await flutterSoundHelper.duration(path) : null;
+    _duration = d != null ? d.inMilliseconds / 1000.0 : null;
+    _durationOfRecording = _duration.toString();
+
+    // Round up to 2 decimal points and convert to string
+    _durationOfRecording = _duration.toStringAsFixed(2);
+    print("_durationOfRecording: $_durationOfRecording");
+
+    // Replace . with :
+    _durationOfRecording = _durationOfRecording.replaceAll('.', ':');
+    print("_durationOfRecording: $_durationOfRecording");
+
+    // If duration of recorded audio is less than 10 seconds
+    // Add 0 before first character in string
+    // Example ||  7.085375 => 07:09  ||
+    if (_duration < 10) {
+      _durationOfRecording = "0" + _durationOfRecording;
+      print("_durationOfRecording: $_durationOfRecording");
+    }
+
+    print("_duration: $_duration");
+    print("durationOfRecording: $_durationOfRecording");
   }
 
-  void _addListeners() {
+  void _addListeners() async {
+
     cancelPlayerSubscriptions();
     _playerSubscription = playerModule.onProgress.listen((e) {
       maxDuration = e.duration.inMilliseconds.toDouble();
+      // _endPlayerTxt = e.duration.inMilliseconds;
       if (maxDuration <= 0) maxDuration = 0.0;
 
       sliderCurrentPosition =
@@ -426,6 +453,7 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                                       right: SizeConfig.blockSizeVertical * 8
                                     ),
                                     child: Row(
+                                      // mainAxisAlignment: MainAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(_playerTxt,
@@ -434,7 +462,8 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                                             color: ColourConfig().dodgerBlue)
                                           ),
                                         Text(
-                                          (widget.durationOfRecording == null) ? _endPlayerTxt : widget.durationOfRecording,
+                                          // (widget.durationOfRecording == null) ? _endPlayerTxt : widget.durationOfRecording,
+                                          _endPlayerTxt,
                                           textScaleFactor: SizeConfig.blockSizeVertical * 0.16,
                                           style: GoogleFonts.arimo(
                                             color: ColourConfig().dodgerBlue)),
@@ -524,7 +553,8 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                         alignment: Alignment.centerRight,
                         child: useThisAudio ? transparentWidgetUse(context, 
                         "Use Recorded Audio",
-                        "Are you sure you want to use the recorded audio?") : Container(),
+                        "Are you sure you want to use the recorded audio?",
+                        widget.filePath) : Container(),
                   ),
                 ),
 
@@ -546,7 +576,8 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
   }
 
 
-  Widget transparentWidgetUse(BuildContext context, String dialogTitle, String dialogInfo) {
+  Widget transparentWidgetUse(BuildContext context, String dialogTitle, 
+    String dialogInfo, String filePath) {
     
     return WillPopScope(
         onWillPop: () => Future.value(false),
@@ -566,7 +597,7 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                         onPressed: () {
                           // Navigate to Generating Melody screen
                           Navigator.pushReplacement(context, MaterialPageRoute(
-                            builder: (context) => GeneratingMelody()));
+                            builder: (context) => GeneratingMelody(filePath : filePath)));
                         },
                       ),
                       CupertinoDialogAction(

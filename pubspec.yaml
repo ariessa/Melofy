@@ -33,8 +33,15 @@ dependencies:
   async: ^2.5.0
   io: ^1.0.0
   wave: ^0.2.0
-  azblob: ^2.0.0
   mime: ^1.0.0
+  http: ^0.13.3
+  convert: ^3.0.0
+  liquid_progress_indicator: ^0.3.2
+  firebase_storage: ^8.0.6
+  english_words: ^4.0.0
+  carousel_slider: ^3.0.0
+  share_extend: ^2.0.0
+  azblob: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/miscellaneous.dart'
     show EmailValidator, SizeConfig, ColourConfig;
-import 'package:melofy/record_audio.dart';
-
+import 'app.dart';
 import 'register.dart';
 
 class LoginPage extends StatefulWidget {
@@ -181,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                                 // Navigate to homepage
                                // Navigator.push(context,MaterialPageRoute(builder: (context) => RecordAudio()));
                                 Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => RecordAudio()));
+                                  MaterialPageRoute(builder: (context) => App()));
                                 print("Signed in");
                               } on auth.FirebaseAuthException catch (e) {
                                 if (e.code == 'user-not-found') {
@@ -198,14 +197,13 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           }),
                       Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             GestureDetector(
                               child: Container(
                                 alignment: Alignment.topLeft,
                                 padding: EdgeInsets.only(
-                                    top: SizeConfig.blockSizeHorizontal * 4,
-                                    left: SizeConfig.blockSizeHorizontal * 10),
+                                    top: SizeConfig.blockSizeHorizontal * 4),
                                 child: Text("Don't have an account?",
                                     textScaleFactor:
                                         SizeConfig.safeBlockVertical * 0.12,
@@ -219,19 +217,19 @@ class _LoginPageState extends State<LoginPage> {
                                   MaterialPageRoute(
                                       builder: (context) => RegisterPage())),
                             ),
-                            Container(
-                              alignment: Alignment.topRight,
-                              padding: EdgeInsets.only(
-                                  top: SizeConfig.blockSizeHorizontal * 4,
-                                  right: SizeConfig.blockSizeHorizontal * 10),
-                              child: Text("Forgot your password?",
-                                  textScaleFactor:
-                                      SizeConfig.safeBlockVertical * 0.12,
-                                  textAlign: TextAlign.end,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.arimo(
-                                      color: ColourConfig().dodgerBlue)),
-                            ),
+                            // Container(
+                            //   alignment: Alignment.topRight,
+                            //   padding: EdgeInsets.only(
+                            //       top: SizeConfig.blockSizeHorizontal * 4,
+                            //       right: SizeConfig.blockSizeHorizontal * 10),
+                            //   child: Text("Forgot your password?",
+                            //       textScaleFactor:
+                            //           SizeConfig.safeBlockVertical * 0.12,
+                            //       textAlign: TextAlign.end,
+                            //       overflow: TextOverflow.ellipsis,
+                            //       style: GoogleFonts.arimo(
+                            //           color: ColourConfig().dodgerBlue)),
+                            // ),
                           ]),
                     ]),
                   ]))),

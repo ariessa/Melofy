@@ -7,10 +7,12 @@ import 'package:melofy/generating_melody.dart';
 import 'package:melofy/record_audio.dart';
 import 'package:melofy/view_recorded_audio.dart';
 import 'login.dart';
+import 'app.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(MyApp());
 }
 
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
             routes: {
               // When navigating to the "/second" route, build the SecondScreen widget.
               // '/deleted': (context) => VisitorDeleted(),
+              '/login': (context) => LoginPage(),
+
             },
             debugShowCheckedModeBanner: false,
             title: 'Melofy',
@@ -36,13 +40,13 @@ class MyApp extends StatelessWidget {
               stream: auth.FirebaseAuth.instance.authStateChanges(),
               builder:
                   (BuildContext context, AsyncSnapshot<auth.User> snapshot) {
-                // if (snapshot.hasData) {
-                //   print("There is a user logged in");
-                //   return RecordAudio();
-                // } else {
-                //   return LoginPage();
-                // }
-                return GeneratingMelody();
+                if (snapshot.hasData) {
+                  print("There is a user logged in");
+                  return App();
+                } else {
+                  return LoginPage();
+                }
+                // return GeneratingMelody();
               },
             )));
   }

@@ -16,6 +16,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
+import 'app.dart';
 
 ///
 const int tSAMPLERATE = 8000;
@@ -226,6 +227,7 @@ class _RecordAudioState extends State<RecordAudio> {
       });
 
       setState(() {
+        // AppState.isRecording = true;
         _isRecording = true;
         _path = path;
       });
@@ -233,6 +235,7 @@ class _RecordAudioState extends State<RecordAudio> {
       print('startRecorder error: $err');
       setState(() {
         stopRecorder();
+        // AppState.isRecording = false;
         _isRecording = false;
         cancelRecordingDataSubscription();
         cancelRecorderSubscriptions();
@@ -334,46 +337,12 @@ class _RecordAudioState extends State<RecordAudio> {
 
   // ------------------------ Stop here -------------------------- //
 
-  int _selectedIndex = 0;
-  
-  static TextStyle optionStyle =
-      GoogleFonts.arimo(fontSize: 25, fontWeight: FontWeight.bold);
-
-  static List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Record',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Melody',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Favourites',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Melody',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 4: Favourites',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
     // If not recording, don't hide bottom navbar
-    if (_isRecording == false) {
+    // if (_isRecording == false) {
       return WillPopScope(
         onWillPop: () => Future.value(false),
         child: Scaffold(
@@ -390,7 +359,7 @@ class _RecordAudioState extends State<RecordAudio> {
                               child: Column(
                                 children: <Widget>[
                                   SizedBox(
-                                      height: SizeConfig.blockSizeVertical * 10),
+                                  height: SizeConfig.blockSizeVertical * 10),
                                   Text(_isRecording
                                       ? 'Recording...'
                                       : 'Record Audio',
@@ -406,6 +375,13 @@ class _RecordAudioState extends State<RecordAudio> {
                                   ),
                                     ClipOval(
                                       child: TextButton(
+                                        // onPressed: () {
+                                        //   setState(() {
+                                        //     AppState.isRecording = true;
+                                        //   });
+                                        //   Navigator.pushReplacement(context, MaterialPageRoute(
+                                        //     builder: (context) => RecordingAudio()));
+                                        // },
                                         onPressed: onStartRecorderPressed(),
                                         //padding: EdgeInsets.all(8.0),
                                         child: Image(
@@ -442,139 +418,142 @@ class _RecordAudioState extends State<RecordAudio> {
               )
             ),
             
-              bottomNavigationBar: BottomNavigationBar(
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Icon(Icons.graphic_eq_rounded, color: ColourConfig().dodgerBlue),
-                  ),
-                  label: 'Record',
-                ),
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Icon(Icons.music_note, color: ColourConfig().dodgerBlue),
-                  ),
+            //   bottomNavigationBar: BottomNavigationBar(
+            //   items: <BottomNavigationBarItem>[
+            //     BottomNavigationBarItem(
+            //       icon: Padding(
+            //         padding: EdgeInsets.only(bottom: 4),
+            //         child: Icon(Icons.graphic_eq_rounded, color: ColourConfig().dodgerBlue),
+            //       ),
+            //       label: 'Record',
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Padding(
+            //         padding: EdgeInsets.only(bottom: 4),
+            //         child: Icon(Icons.music_note, color: ColourConfig().dodgerBlue),
+            //       ),
                   
-                  label: 'Melody',
-                ),
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Icon(Icons.favorite_border_rounded, color: ColourConfig().dodgerBlue),
-                  ),
+            //       label: 'Melody',
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Padding(
+            //         padding: EdgeInsets.only(bottom: 4),
+            //         child: Icon(Icons.favorite_border_rounded, color: ColourConfig().dodgerBlue),
+            //       ),
                   
-                  label: 'Favourites',
-                ),
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Icon(Icons.school_rounded, color: ColourConfig().dodgerBlue),
-                  ),
+            //       label: 'Favourites',
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Padding(
+            //         padding: EdgeInsets.only(bottom: 4),
+            //         child: Icon(Icons.school_rounded, color: ColourConfig().dodgerBlue),
+            //       ),
                   
-                  label: 'Tutorials',
-                ),
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Icon(Icons.logout, color: ColourConfig().dodgerBlue),
-                  ),
+            //       label: 'Tutorials',
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Padding(
+            //         padding: EdgeInsets.only(bottom: 4),
+            //         child: Icon(Icons.logout, color: ColourConfig().dodgerBlue),
+            //       ),
                   
-                  label: 'Log Out',
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              selectedItemColor: ColourConfig().dodgerBlue,
-              onTap: _onItemTapped,
-              showSelectedLabels: true,
-              showUnselectedLabels: false,
-            ),
+            //       label: 'Log Out',
+            //     ),
+            //   ],
+            //   currentIndex: _selectedIndex,
+            //   selectedItemColor: ColourConfig().dodgerBlue,
+            //   onTap: _onItemTapped,
+            //   showSelectedLabels: true,
+            //   showUnselectedLabels: false,
+
+            // ),
+        
+        
         )
     );
-    }
+    // }
     
-    // Else if recording, hide bottom navbar
-    else {
-      return WillPopScope(
-        onWillPop: () => Future.value(false),
-        child: Scaffold(
-            body: SingleChildScrollView(
-              child: Container(
-                  height: SizeConfig.screenHeight,
-                  child: Column(
-                      children: <Widget>[
-                        Container(
-                          width: SizeConfig.screenWidth,
-                          height: SizeConfig.blockSizeVertical * 48,
-                          child: Container(
-                              color: ColourConfig().dodgerBlue,
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                      height: SizeConfig.blockSizeVertical * 10),
-                                  Text(_isRecording
-                                      ? 'Recording...'
-                                      : 'Record Audio',
-                                      textScaleFactor:
-                                          SizeConfig.safeBlockVertical * 0.25,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      )
-                                  ),
-                                  SizedBox(
-                                      height: SizeConfig.blockSizeVertical * 12
-                                  ),
-                                    ClipOval(
-                                      child: TextButton(
-                                        onPressed: onStartRecorderPressed(),
-                                        //padding: EdgeInsets.all(8.0),
-                                        child: Image(
-                                          image: recorderAssetImage(),
-                                          width: SizeConfig.blockSizeVertical * 30,
-                                          height: SizeConfig.blockSizeVertical * 14
-                                        ),
-                                      ),
-                                    ),
-                                ]
-                              )
-                          )
-                        ),
+    // // Else if recording, hide bottom navbar
+    // else {
+    //   return WillPopScope(
+    //     onWillPop: () => Future.value(false),
+    //     child: Scaffold(
+    //         body: SingleChildScrollView(
+    //           child: Container(
+    //               height: SizeConfig.screenHeight,
+    //               child: Column(
+    //                   children: <Widget>[
+    //                     Container(
+    //                       width: SizeConfig.screenWidth,
+    //                       height: SizeConfig.blockSizeVertical * 48,
+    //                       child: Container(
+    //                           color: ColourConfig().dodgerBlue,
+    //                           child: Column(
+    //                             children: <Widget>[
+    //                               SizedBox(
+    //                                   height: SizeConfig.blockSizeVertical * 10),
+    //                               Text(_isRecording
+    //                                   ? 'Recording...'
+    //                                   : 'Record Audio',
+    //                                   textScaleFactor:
+    //                                       SizeConfig.safeBlockVertical * 0.25,
+    //                                   style: TextStyle(
+    //                                     color: Colors.white,
+    //                                     fontWeight: FontWeight.bold,
+    //                                   )
+    //                               ),
+    //                               SizedBox(
+    //                                   height: SizeConfig.blockSizeVertical * 12
+    //                               ),
+    //                                 ClipOval(
+    //                                   child: TextButton(
+    //                                     onPressed: onStartRecorderPressed(),
+    //                                     //padding: EdgeInsets.all(8.0),
+    //                                     child: Image(
+    //                                       image: recorderAssetImage(),
+    //                                       width: SizeConfig.blockSizeVertical * 30,
+    //                                       height: SizeConfig.blockSizeVertical * 14
+    //                                     ),
+    //                                   ),
+    //                                 ),
+    //                             ]
+    //                           )
+    //                       )
+    //                     ),
 
-                        Expanded(
-                          child: Container(
-                          color: Colors.white,
-                          width: SizeConfig.screenWidth,
-                              child: Column(
-                                children: <Widget> [
-                                  SizedBox(height: SizeConfig.blockSizeVertical * 15),
-                                  Text(_recorderTxt,
-                                      textAlign: TextAlign.center,
-                                      textScaleFactor: SizeConfig.safeBlockVertical * 1,
-                                      style: TextStyle(
-                                        color: ColourConfig().dodgerBlue,
-                                      )
-                                  ),
-                                ]  
-                          )
-                        ), flex: 1),
+    //                     Expanded(
+    //                       child: Container(
+    //                       color: Colors.white,
+    //                       width: SizeConfig.screenWidth,
+    //                           child: Column(
+    //                             children: <Widget> [
+    //                               SizedBox(height: SizeConfig.blockSizeVertical * 15),
+    //                               Text(_recorderTxt,
+    //                                   textAlign: TextAlign.center,
+    //                                   textScaleFactor: SizeConfig.safeBlockVertical * 1,
+    //                                   style: TextStyle(
+    //                                     color: ColourConfig().dodgerBlue,
+    //                                   )
+    //                               ),
+    //                             ]  
+    //                       )
+    //                     ), flex: 1),
 
-                        _isRecording
-                          ? LinearProgressIndicator(
-                              value: 100.0 / 160.0 * (_dbLevel ?? 1) / 100,
-                              minHeight: SizeConfig.blockSizeVertical * 6,
-                              valueColor: AlwaysStoppedAnimation<Color>(ColourConfig().dodgerBlue),
-                              backgroundColor: ColourConfig().frenchPass)
-                          : Container(),
+    //                     _isRecording
+    //                       ? LinearProgressIndicator(
+    //                           value: 100.0 / 160.0 * (_dbLevel ?? 1) / 100,
+    //                           minHeight: SizeConfig.blockSizeVertical * 6,
+    //                           valueColor: AlwaysStoppedAnimation<Color>(ColourConfig().dodgerBlue),
+    //                           backgroundColor: ColourConfig().frenchPass)
+    //                       : Container(),
 
-                      ]
-                  )
-              )
-            )
-        )
-      );
-    }
+    //                   ]
+    //               )
+    //           )
+    //         )
+    //     )
+    //   );
+    // }
     
   }
 }
