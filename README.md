@@ -12,6 +12,40 @@ The features of this app are as follows:
 
 ● Log In
 
+● Record Audio
+
+● View the Recorded Audio
+
+● Play the Recorded Audio
+
+● Pause the Recorded Audio
+
+● Delete the Recorded Audio
+
+● Use the Recorded Audio
+
+● Generate Melody
+
+● View the Generated Melody
+
+● Play the Generated Melody
+
+● Pause the Generated Melody
+
+● Favourite the Generated Melody
+
+● Share the Generated Melody
+
+● Close the Generated Melody
+
+● View Generated Melodies
+
+● View Favourited Melodies
+
+● View In-App Tutorials
+
+● Log Out
+
 </br> 
 
 ## Building and Releasing the APKs
