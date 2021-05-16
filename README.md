@@ -14,6 +14,22 @@ The features of this app are as follows:
 
 </br> 
 
+## Building and Releasing the APKs
+
+First, clear build cache.
+
+```
+flutter clean
+```
+
+Then, build APKs by splitting them per Application Binary Interface (ABI).
+
+```
+flutter build apk --split-per-abi
+```
+
+</br> 
+
 ## Testing the App
 
 1. Find out your device's CPU architecture.
