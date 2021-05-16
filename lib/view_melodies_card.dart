@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:melofy/miscellaneous.dart';
@@ -32,11 +31,9 @@ class MelodyCard extends StatelessWidget {
     return Card(
         child: InkWell(
             onTap: () async {
-            
-            print("AppState.disableNavbar: ${AppState.disableNavbar}");
 
             // Get Melofy's documents directory
-            final directory = await getApplicationDocumentsDirectory();
+            final directory = await getTemporaryDirectory();
             print(directory.path);
 
             // Set path to store generatedMelody
@@ -61,7 +58,8 @@ class MelodyCard extends StatelessWidget {
               builder: (context) => ViewGeneratedMelody(
               filePath: path,
               melodyName: melodyName,
-              isFavourite: isFavourite,)));
+              melodyId: melodyId,
+              isFavourite: isFavourite)));
 
             },   
             child: Container(
@@ -77,11 +75,11 @@ class MelodyCard extends StatelessWidget {
                           bottom: SizeConfig.blockSizeVertical * 1,
                           left: SizeConfig.blockSizeHorizontal * 2.5,
                           right: SizeConfig.blockSizeHorizontal * 2.5),
-                      child: Image(
-                        width: SizeConfig.blockSizeHorizontal * 18,
-                        height: SizeConfig.blockSizeVertical * 8,
-                        image: AssetImage('assets/music_note-black-18dp.png'),
-                      ),
+                      child: Icon(
+                        Icons.music_note_sharp,
+                        size: SizeConfig.blockSizeVertical * 8,
+                        color: ColourConfig().dodgerBlue
+                      )
                     ),
                     SizedBox(
                       width: SizeConfig.blockSizeHorizontal * 1,

@@ -1,6 +1,4 @@
 import 'package:melofy/miscellaneous.dart';
-
-import 'app.dart';
 import 'package:flutter/material.dart';
 import 'tab_item.dart';
 
@@ -49,9 +47,5 @@ class BottomNavigation extends StatelessWidget {
       ),
       
     );
-  }
-
-  Color _tabColor({int index}) {
-    return AppState.currentTab == index ? Colors.cyan : Colors.grey;
   }
 }

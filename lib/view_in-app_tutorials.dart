@@ -8,9 +8,9 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 final List<String> imgList = [
-  "assets/mr-tt-xb0wLfZH9Zo-unsplash.jpg",
-  "assets/jene-stephaniuk-qtfE7R7du4Q-unsplash.jpg",
-  "assets/alexandre-perotto-iAgar8-4knE-unsplash.jpg"
+  "https://images.unsplash.com/photo-1523554888454-84137e72c3ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
+  "https://images.unsplash.com/photo-1602781148267-a2cd13e98c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80",
+  "https://images.unsplash.com/photo-1614386962045-71da4a84a4c8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=282&q=80"
 ];
 
 final List<String> titleList = [
@@ -36,8 +36,8 @@ final List<Widget> imageSliders = imgList.map((item) => Container(
           ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(5.0)),
           // SizedBox(height: SizeConfig.blockSizeVertical * 4),
-          child: Image(
-            image: AssetImage(item), 
+          child: Image.network(
+            item,
             fit: BoxFit.cover, 
             height: SizeConfig.blockSizeVertical * 45, 
             width: SizeConfig.screenWidth - SizeConfig.blockSizeHorizontal * 4),),
@@ -89,8 +89,6 @@ class _ViewInAppTutorialsState extends State<ViewInAppTutorials> {
   @override
   void initState() {
     super.initState();
-    AppState.disableNavbar = false;
-
   }
 
   @override

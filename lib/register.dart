@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/login.dart';
 import 'package:melofy/miscellaneous.dart'
     show EmailValidator, SizeConfig, ColourConfig;
-import 'package:melofy/record_audio.dart';
+import 'package:melofy/app.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -38,7 +38,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         Container(
                           width: SizeConfig.screenWidth,
                           child: Container(
-                              //constraints: BoxConstraints.expand(),
                               child: Column(
                                 children: <Widget>[
                                   SizedBox(
@@ -49,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       style: GoogleFonts.arimo(
                                         color: ColourConfig().dodgerBlue,
                                         fontWeight: FontWeight.bold
-                                      ))
+                                      )),
                                 ],
                               )),
                         ),
@@ -59,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(
-                              top: SizeConfig.blockSizeHorizontal * 10,
+                              top: SizeConfig.blockSizeHorizontal * 20,
                               left: SizeConfig.blockSizeHorizontal * 10,
                               right: SizeConfig.blockSizeHorizontal * 10),
                           child: Text('Name',
@@ -205,7 +204,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             bottom: SizeConfig.blockSizeHorizontal * 3),
                         child: DropdownButtonFormField(
                           elevation: 2,
-                          icon: Image.asset('assets/arrow-downward.png'),
+                          icon: Icon(
+                            Icons.expand_more_sharp,
+                            color: ColourConfig().dodgerBlue),
                           style: GoogleFonts.arimo(
                             color: ColourConfig().dodgerBlue),
                           decoration: InputDecoration(
@@ -283,7 +284,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 });
 
                                 // Navigate to homepage
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => RecordAudio()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => App()));
                               
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'weak-password') {

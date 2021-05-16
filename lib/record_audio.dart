@@ -1,22 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/view_recorded_audio.dart';
 import 'miscellaneous.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'dart:typed_data' show Uint8List;
-
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
-import 'app.dart';
 
 ///
 const int tSAMPLERATE = 8000;
@@ -62,8 +57,6 @@ enum AudioState {
   ///
   isRecordingPaused,
 }
-
-typedef _Fn = void Function();
 
 class RecordAudio extends StatefulWidget {
 
@@ -328,11 +321,14 @@ class _RecordAudioState extends State<RecordAudio> {
 
   AssetImage recorderAssetImage() {
     if (onStartRecorderPressed() == null) {
-      return AssetImage('assets/record-audio-button.png');
+      // return AssetImage('assets/record-audio-button.png');
+      return AssetImage('assets/Group-record.png');
     }
     return (recorderModule.isStopped)
-        ? AssetImage('assets/record-audio-button.png')
-        : AssetImage('assets/record-stop-button.png');
+        // ? AssetImage('assets/record-audio-button.png')
+        // : AssetImage('assets/record-stop-button.png');
+        ? AssetImage('assets/Group-record.png')
+        : AssetImage('assets/Group-stop.png');
   }
 
   // ------------------------ Stop here -------------------------- //
@@ -375,19 +371,11 @@ class _RecordAudioState extends State<RecordAudio> {
                                   ),
                                     ClipOval(
                                       child: TextButton(
-                                        // onPressed: () {
-                                        //   setState(() {
-                                        //     AppState.isRecording = true;
-                                        //   });
-                                        //   Navigator.pushReplacement(context, MaterialPageRoute(
-                                        //     builder: (context) => RecordingAudio()));
-                                        // },
                                         onPressed: onStartRecorderPressed(),
-                                        //padding: EdgeInsets.all(8.0),
                                         child: Image(
                                           image: recorderAssetImage(),
-                                          width: SizeConfig.blockSizeVertical * 30,
-                                          height: SizeConfig.blockSizeVertical * 14
+                                          // width: SizeConfig.blockSizeVertical * 30,
+                                          // height: SizeConfig.blockSizeVertical * 14
                                         ),
                                       ),
                                     ),
@@ -412,7 +400,16 @@ class _RecordAudioState extends State<RecordAudio> {
                                   ),
                                 ]  
                           )
-                        ), flex: 1)
+                        ), flex: 1),
+                      
+                      _isRecording
+                          ? LinearProgressIndicator(
+                              value: 100.0 / 160.0 * (_dbLevel ?? 1) / 100,
+                              minHeight: SizeConfig.blockSizeVertical * 6,
+                              valueColor: AlwaysStoppedAnimation<Color>(ColourConfig().dodgerBlue),
+                              backgroundColor: ColourConfig().frenchPass)
+                          : Container(),
+
                       ]
                   )
               )

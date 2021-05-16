@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:melofy/miscellaneous.dart';
-import 'package:melofy/record_audio.dart';
 import 'package:melofy/view_melodies_card.dart';
 import 'package:melofy/app.dart';
 
@@ -26,9 +24,6 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
 
     @override
   void initState() {
-    setState(() {
-      AppState.disableNavbar = false;
-    });
     super.initState();
   }
 
@@ -67,20 +62,6 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
               centerTitle: true,
               elevation: 0.0,
               backgroundColor: Colors.white,
-              // actions: <Widget>[
-
-              //   GestureDetector(
-              //       child: Icon(Icons.filter_alt_rounded, color: ColourConfig().dodgerBlue,),
-              //       onTap: () {
-
-              //         setState(() {
-
-              //         // Navigate to View Favourites screen 
-              //         });
-
-                      
-              //       }),
-              // ],
             ),
             body: Column(
               children: <Widget>[

@@ -72,12 +72,11 @@ class ViewGeneratedMelody extends StatefulWidget {
   final String filePath;
   final String durationOfRecording;
   final String melodyName;
-  final Function disableNavbar;
   final bool isFavourite;
   final String melodyId;
 
   const ViewGeneratedMelody(
-      {Key key, this.filePath, this.durationOfRecording, this.melodyName, this.disableNavbar, 
+      {Key key, this.filePath, this.durationOfRecording, this.melodyName,
       this.isFavourite, this.melodyId}) 
       : super(key: key); 
 
@@ -124,17 +123,6 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
     MaskFilter.blur(BlurStyle.solid, 16.0),
   ];
   int _blurIndex = 0;
-  MaskFilter _nextBlur() {
-    if (_blurIndex == _blurs.length - 1) {
-      _blurIndex = 0;
-    } else {
-      _blurIndex = _blurIndex + 1;
-    }
-    _blur = _blurs[_blurIndex];
-    return _blurs[_blurIndex];
-  }
-
-  bool _showPlayIcon = true;
 
   StreamSubscription _playerSubscription;
   FlutterSoundPlayer playerModule = FlutterSoundPlayer();
@@ -179,7 +167,6 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
 
     super.initState();
     setState(() {
-      AppState.disableNavbar = true;
       _endPlayerTxt = widget.durationOfRecording;
       _melodyName = widget.melodyName;
       favouriteThisMelody = widget.isFavourite;
@@ -187,6 +174,7 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
       audioFile = File(widget.filePath);
     });
 
+    print("===========> generatedMelodyID: $generatedMelodyID");
     init();
   }
 
@@ -255,9 +243,6 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
       var txt = DateFormat('mm:ss:SS', 'en_GB').format(date);
       setState(() {
         _playerTxt = txt.substring(3, 8);
-        
-        // print("playerTxt: $_playerTxt");
-        // print("duration: $_endPlayerTxt");
       });
     });
   }
@@ -280,7 +265,6 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
   final int blockSize = 4096;
   Future<void> feedHim(String path) async {
     var buffer = await _readFileByte(path);
-    //var buffer = await getAssetData('assets/samples/sample.pcm');
 
     var lnData = 0;
     var totalLength = buffer.length;
@@ -347,7 +331,7 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
   }
 
   Future<void> seekToPlayer(int milliSecs) async {
-    //print('-->seekToPlayer');
+
     try {
       if (playerModule.isPlaying) {
         await playerModule.seekToPlayer(Duration(milliseconds: milliSecs));
@@ -356,7 +340,7 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
       print('error: $err');
     }
     setState(() {});
-    //print('<--seekToPlayer');
+
   }
 
   void Function() onPauseResumePlayerPressed() {
@@ -378,8 +362,6 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
     } else {
       return onStartPlayerPressed();
     }
-    // startPlayer();
-  
   }
 
   AssetImage playerAssetImage() {
@@ -400,17 +382,9 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
     return currentUserName;
   }
 
-  // void generateRandomMelodyName() {
-  //   final WordPair wordPair = WordPair.random();
-
-  //   print("=========> wordPair: $wordPair");
-  //   _wordPair = wordPair;
-  // }
-
 @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    print("================> widget.filePath: ${widget.filePath}");
     
     return WillPopScope(
         onWillPop: () => Future.value(false),
@@ -435,9 +409,9 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
                                       Container(
                                         height: SizeConfig.blockSizeVertical * 40,
                                         color: Colors.white,
-                                        child: Image(
+                                        child: Image.network(
+                                              "https://images.unsplash.com/photo-1518173184999-0381b5eb56d7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                                               height: SizeConfig.blockSizeVertical * 40,
-                                              image: AssetImage('assets/view-generated-melody-image.jpg'),
                                               width: double.infinity,
                                               fit: BoxFit.cover
                                             ),
@@ -445,7 +419,6 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
                                       Container(
                                         padding: EdgeInsets.only(
                                           top: SizeConfig.blockSizeVertical * 1,
-                                          // right: SizeConfig.blockSizeVertical * 1
                                         ),
                                         child: ClipOval(
                                         child: TextButton(
@@ -459,10 +432,6 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
                                             color: ColourConfig().dodgerBlue,
                                           ),
                                           onPressed: () {
-
-                                            setState(() {
-                                              AppState.disableNavbar = false;
-                                            });
 
                                             // Navigate to Record Audio screen
                                             return Navigator.pushReplacement(context, MaterialPageRoute(
@@ -573,7 +542,7 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
                                         ),
                                         onPressed: () {
                                           setState(() {
-                                            if(favouriteThisMelody){
+                                            if(favouriteThisMelody == true){
                                               favouriteThisMelody = false;
 
                                             } else {

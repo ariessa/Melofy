@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:melofy/miscellaneous.dart';
-import 'package:melofy/record_audio.dart';
 import 'package:melofy/view_melodies_card.dart';
 import 'package:melofy/app.dart';
 
@@ -24,9 +22,6 @@ class _ViewFavouritesMainState extends State<ViewFavouritesMain> {
 
     @override
   void initState() {
-    setState(() {
-      AppState.disableNavbar = false;
-    });
     super.initState();
   }
 
@@ -160,34 +155,5 @@ class _ViewFavouritesMainState extends State<ViewFavouritesMain> {
                         ))),
               ],
             )));
-  }
-
-  Future<void> _showMyDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return WillPopScope(
-            onWillPop: () => Future.value(false),
-            child: AlertDialog(
-              title: Text('Cannot Add Check In'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text('Add check in requires at least 1 visitor')
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('CLOSE'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ));
-      },
-    );
   }
 }

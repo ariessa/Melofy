@@ -49,12 +49,7 @@ class CircleThumbShape extends SliderComponentShape {
       begin: _disabledThumbRadius,
       end: enabledThumbRadius,
     );
-    final ColorTween colorTween = ColorTween(
-      begin: sliderTheme.disabledThumbColor,
-      end: sliderTheme.thumbColor,
-    );
 
-    final Color color = colorTween.evaluate(enableAnimation);
     final double radius = radiusTween.evaluate(enableAnimation);
 
     final Tween<double> elevationTween = Tween<double>(

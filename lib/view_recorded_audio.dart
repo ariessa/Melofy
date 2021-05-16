@@ -5,20 +5,14 @@ import 'package:melofy/circle_thumb_shape.dart';
 import 'package:melofy/generating_melody.dart';
 import 'package:melofy/record_audio.dart';
 import 'miscellaneous.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:permission_handler/permission_handler.dart';
-
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data' show Uint8List;
-
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' show DateFormat;
-import 'package:melofy/circle_thumb_shape.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -143,6 +137,7 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
   bool _isAudioPlayer = false;
 
   double _duration;
+  // ignore: close_sinks
   IOSink sink;
 
   Future<void> _initializeExample(bool withUI) async {
@@ -156,8 +151,6 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
         device: AudioDevice.speaker);
     await playerModule.setSubscriptionDuration(Duration(milliseconds: 10));
     await initializeDateFormatting();
-    // _endPlayerTxt = widget.durationOfRecording;
-    // print("_endPlayerTxt: $_endPlayerTxt");
   }
 
   Future<void> init() async {
@@ -168,10 +161,13 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
   @override
   void initState() {
     super.initState();
-    getDuration();
-    _endPlayerTxt = _durationOfRecording;
-    print("_durationOfRecording: $_endPlayerTxt");
-    init();
+    setState(() {
+      getDuration();
+      _endPlayerTxt = _durationOfRecording;
+      print("_durationOfRecording: $_endPlayerTxt");
+      init();
+    });
+
   }
 
   void cancelPlayerSubscriptions() {
@@ -228,7 +224,6 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
     cancelPlayerSubscriptions();
     _playerSubscription = playerModule.onProgress.listen((e) {
       maxDuration = e.duration.inMilliseconds.toDouble();
-      // _endPlayerTxt = e.duration.inMilliseconds;
       if (maxDuration <= 0) maxDuration = 0.0;
 
       sliderCurrentPosition =
@@ -267,7 +262,6 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
   final int blockSize = 4096;
   Future<void> feedHim(String path) async {
     var buffer = await _readFileByte(path);
-    //var buffer = await getAssetData('assets/samples/sample.pcm');
 
     var lnData = 0;
     var totalLength = buffer.length;
@@ -452,23 +446,12 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                                       left: SizeConfig.blockSizeVertical * 8,
                                       right: SizeConfig.blockSizeVertical * 8
                                     ),
-                                    child: Row(
-                                      // mainAxisAlignment: MainAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(_playerTxt,
+                                    child:Text(_playerTxt,
                                           textScaleFactor: SizeConfig.blockSizeVertical * 0.16,
                                           style: GoogleFonts.arimo(
                                             color: ColourConfig().dodgerBlue)
                                           ),
-                                        Text(
-                                          // (widget.durationOfRecording == null) ? _endPlayerTxt : widget.durationOfRecording,
-                                          _endPlayerTxt,
-                                          textScaleFactor: SizeConfig.blockSizeVertical * 0.16,
-                                          style: GoogleFonts.arimo(
-                                            color: ColourConfig().dodgerBlue)),
-                                      ]
-                                    )
+
                                   ),
                                   SizedBox(height: SizeConfig.blockSizeVertical * 4),
 

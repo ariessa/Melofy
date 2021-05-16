@@ -39,14 +39,17 @@ class _LoginPageState extends State<LoginPage> {
                               child: Column(
                                 children: <Widget>[
                                   SizedBox(
-                                      height: SizeConfig.blockSizeVertical * 8),
-                                  Image.asset(
-                                      'assets/music_note-black-18dp.png'),
+                                      height: SizeConfig.blockSizeVertical * 6),
+                                  Icon(
+                                    Icons.music_note_sharp,
+                                          size: SizeConfig.blockSizeVertical * 20,
+                                          color: ColourConfig().dodgerBlue,
+                                        ),
                                   SizedBox(
-                                      height: SizeConfig.blockSizeVertical * 8),
+                                      height: SizeConfig.blockSizeVertical * 6),
                                   Text('Melofy'.toUpperCase(),
                                       textScaleFactor:
-                                          SizeConfig.safeBlockVertical * 0.35,
+                                          SizeConfig.safeBlockVertical * 0.34,
                                       style: TextStyle(
                                         color: ColourConfig().dodgerBlue,
                                         fontWeight: FontWeight.bold,
@@ -217,19 +220,6 @@ class _LoginPageState extends State<LoginPage> {
                                   MaterialPageRoute(
                                       builder: (context) => RegisterPage())),
                             ),
-                            // Container(
-                            //   alignment: Alignment.topRight,
-                            //   padding: EdgeInsets.only(
-                            //       top: SizeConfig.blockSizeHorizontal * 4,
-                            //       right: SizeConfig.blockSizeHorizontal * 10),
-                            //   child: Text("Forgot your password?",
-                            //       textScaleFactor:
-                            //           SizeConfig.safeBlockVertical * 0.12,
-                            //       textAlign: TextAlign.end,
-                            //       overflow: TextOverflow.ellipsis,
-                            //       style: GoogleFonts.arimo(
-                            //           color: ColourConfig().dodgerBlue)),
-                            // ),
                           ]),
                     ]),
                   ]))),

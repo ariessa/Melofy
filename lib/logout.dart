@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/main.dart';
 import 'package:melofy/miscellaneous.dart'
-    show EmailValidator, SizeConfig, ColourConfig;
+    show SizeConfig, ColourConfig;
 
 
 enum ConfirmAction { CANCEL, CONFIRM }
@@ -14,12 +14,6 @@ class LogoutPage extends StatefulWidget {
 }
 
 class _LogoutPageState extends State<LogoutPage> {
-  final _formKey = GlobalKey<FormState>();
-  String _password;
-  String _email;
-
-  @override
-  
 
   @override
   Widget build(BuildContext context) {

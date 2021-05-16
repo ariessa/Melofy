@@ -63,6 +63,7 @@ void initState() {
 @override
 void dispose() {
   _animationController.dispose();
+
   super.dispose();
 }
 
@@ -193,7 +194,7 @@ Future uploadRecordedAudioFileToAzure(BuildContext context) async {
             print("generatedMelodyMinute: $generatedMelodyMinute");  
 
             // Get Melofy's documents directory
-            final directory = await getApplicationDocumentsDirectory();
+            final directory = await getTemporaryDirectory();
             print(directory.path);
 
             // Set path to store generatedMelody
@@ -208,7 +209,8 @@ Future uploadRecordedAudioFileToAzure(BuildContext context) async {
                   .ref("$generatedMelodyNameOnly")
                   .writeToFile(downloadToFile);
             } on FirebaseException catch (e) {
-              // e.g, e.code == 'canceled'
+              // ignore: unnecessary_statements
+              e.code == 'Failed to download file';
             }
 
             print("======> Downloaded generatedMelody");
@@ -296,7 +298,6 @@ Future uploadRecordedAudioFileToAzure(BuildContext context) async {
 @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final percentage = _animationController.value * 100;
     return WillPopScope(
         onWillPop: () => Future.value(false),
         child: Scaffold(

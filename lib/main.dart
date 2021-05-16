@@ -3,9 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:melofy/generating_melody.dart';
-import 'package:melofy/record_audio.dart';
-import 'package:melofy/view_recorded_audio.dart';
 import 'login.dart';
 import 'app.dart';
 
