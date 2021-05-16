@@ -74,7 +74,7 @@ flutter build apk --split-per-abi
 
 3. Download the specific release APK based on your device's CPU architecture and install it.
 
-+ For `ARM`, use APK endig with _armeabi-v7a.apk_
++ For `ARM`, use APK ending with _armeabi-v7a.apk_
 + For `ARM64`, use APK ending with _arm64-v8a.apk_
 + For `x86_64`, use APK ending with _x86_64.apk_
 
