@@ -144,7 +144,7 @@ class MelodyCard extends StatelessWidget {
                               bottom: SizeConfig.blockSizeVertical * 1,
                               left: SizeConfig.blockSizeHorizontal * 2.5,
                               right: SizeConfig.blockSizeHorizontal * 2.5),
-                          child: Text("MELODY NAME",
+                          child: Text("NAME",
                               textAlign: TextAlign.end,
                               textScaleFactor: 0.9,
                               style: TextStyle(

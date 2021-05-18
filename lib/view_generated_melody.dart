@@ -531,10 +531,6 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
                                     children: [
                                     ClipOval(
                                       child: TextButton(
-                                        // style: TextButton.styleFrom(
-                                        //   backgroundColor: ColourConfig().aliceBlue,
-                                        //   shape: CircleBorder(),
-                                        // ),
                                         child: Icon(
                                           favouriteThisMelody ? Icons.favorite_rounded : Icons.favorite_border_rounded,
                                           size: SizeConfig.blockSizeVertical * 7,
@@ -548,7 +544,7 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
                                             } else {
                                               favouriteThisMelody = true;
                                             }
-                                            // Added Update isFavourite
+                                            // Update isFavourite
                                               FirebaseFirestore.instance.collection('generatedMelodies')
                                                 .doc(generatedMelodyID)
                                                 .update({

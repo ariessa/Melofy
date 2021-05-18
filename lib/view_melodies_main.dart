@@ -2,16 +2,20 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/miscellaneous.dart';
 import 'package:melofy/view_melodies_card.dart';
 import 'package:melofy/app.dart';
 
 class ViewMelodiesMain extends StatefulWidget {
+  ViewMelodiesMain({Key key}) : super(key: key);
+
   @override
   _ViewMelodiesMainState createState() => _ViewMelodiesMainState();
 }
 
 class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
+
   String searchQuery = '';
   bool displayFavouritesOnly = false;
   bool isFiltered = false;
@@ -47,13 +51,7 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
     return WillPopScope(
         onWillPop: () => Future.value(false),
         child: Scaffold(
-            // resizeToAvoidBottomPadding: false,
             appBar: AppBar(
-              // leading: GestureDetector(
-              //   child: Image.asset('assets/Menu.png'),
-              //   onTap: () => Navigator.push(context,
-              //       MaterialPageRoute(builder: (context) => HomePage())),
-              // ),
               title: Text(
                 'MELODIES',
                 style: TextStyle(color: Color(0xff2699fb)),
@@ -124,7 +122,35 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                                 return new ListView(
                                   children: snapshot.data.docs
                                       .map((DocumentSnapshot document) {
-                                    return new MelodyCard(
+                                    return new Dismissible(
+                                      key: UniqueKey(), 
+                                      onDismissed: (DismissDirection direction) {
+
+                                          FirebaseFirestore.instance
+                                            .collection('generatedMelodies')
+                                            .doc(document.id)
+                                            .delete()
+                                            .then((value) => print("=====> Deleted generated melody" + document['name'].toString()));
+
+                                      },
+                                      secondaryBackground: Container(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                            right: SizeConfig.blockSizeVertical * 4,
+                                          ),
+                                          child: Icon(
+                                              Icons.delete_rounded,
+                                              color: Colors.white,
+                                              size: SizeConfig.blockSizeVertical * 5,
+                                          ),
+                                        ),
+                                        
+                                        color: Colors.red,
+                                      ),
+                                      background: Container(),
+                                      direction: DismissDirection.endToStart,
+                                      child: MelodyCard(
                                         melodyId: document.id,
                                         melodyName: document['name'],
                                         melodyDay: document['day'],
@@ -132,7 +158,9 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                                         melodyYear: document['year'],
                                         melodyHour: document['hour'],
                                         melodyMinute: document['minute'],
-                                        isFavourite: document['isFavourite']);
+                                        isFavourite: document['isFavourite'])
+                                      );
+
                                   }).toList(),
                                 );
                             }

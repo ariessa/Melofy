@@ -153,54 +153,5 @@ class AppState extends State<App> {
     );
     }
 
-
-
-    // else {
-
-    //   return WillPopScope(
-    //   onWillPop: () async {
-    //     final isFirstRouteInCurrentTab =
-    //         !await tabs[currentTab].key.currentState.maybePop();
-    //     if (isFirstRouteInCurrentTab) {
-    //       // if not on the 'main' tab
-    //       if (currentTab != 0) {
-    //         // select 'main' tab
-    //         _selectTab(0);
-    //         // back button handled by app
-    //         return false;
-    //       }
-    //     }
-    //     // let system handle back button if we're on the first route
-    //     return isFirstRouteInCurrentTab;
-    //   },
-    //   // this is the base scaffold
-    //   // don't put appbar in here otherwise you might end up
-    //   // with multiple appbars on one screen
-    //   // eventually breaking the app
-    //   child: Scaffold(
-    //   //   // indexed stack shows only one child
-    //     body: IndexedStack(
-    //       index: currentTab,
-    //       children: tabs.map((e) => e.page).toList(),
-    //     ),
-    //     // Bottom navigation
-    //     bottomNavigationBar: AppState.disableNavbar ? null: BottomNavigation(
-    //       onSelectTab: _selectTab,
-    //       tabs: tabs,
-    //     ),
-    //   //   floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-    //   //   floatingActionButton: new FloatingActionButton(
-    //   //   onPressed:(){ 
-    //   //     Navigator.pushReplacement(context, MaterialPageRoute(
-    //   //     builder: (context) => RecordAudio()));
-    //   //    },
-    //   //   tooltip: 'Create New Melody',
-    //   //   child: new Icon(Icons.add),
-    //   // ), 
-    //   ),
-    // );
-
-    // }
-
   }
 }
