@@ -435,7 +435,7 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
 
                                             // Navigate to Record Audio screen
                                             return Navigator.pushReplacement(context, MaterialPageRoute(
-                                              builder: (context) => ViewMelodiesMain()));
+                                              builder: (context) => App()));
                                           },
                                         ),
                                       ), 
