@@ -50,7 +50,7 @@ The features of this app are as follows:
 
 ## Building and Releasing the APKs
 
-> **_NOTE:_** If flutter_ffmpeg release builds on Android fail, make sure that mavenCentral() is defined as a repository in your build.gradle and it is listed before jcenter().
+> **_NOTE:_** If release builds on Android fail and mentions `flutter_ffmpeg`, make sure that mavenCentral() is defined as a repository in your build.gradle and it is listed before jcenter().
 
 1. Clear build cache
 
