@@ -36,17 +36,6 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
     super.dispose();
   }
 
-  String getCurrentId() {
-
-        // Get current user id
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User user = auth.currentUser;
-    final currentUserId = user.uid;
-
-    return currentUserId;
-  }
-
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -87,10 +76,37 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                         if (displayFavouritesOnly == 0){
                           displayFavouritesOnly = 1;
                           isFiltered = true;
+                          final snackBar = SnackBar(
+                          content: Text('Showing Favourite Melodies Only'),
+                          action: SnackBarAction(
+                            label: 'Close',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                         else {
                           displayFavouritesOnly = 0;
                           isFiltered = false;
+
+                          final snackBar = SnackBar(
+                          content: Text('Showing All Melodies'),
+                          action: SnackBarAction(
+                            label: 'Close',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       });
 
@@ -230,6 +246,9 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                           },
                         ))),
               ],
-            )));
+            )
+            )
+            );
+
   }
 }
