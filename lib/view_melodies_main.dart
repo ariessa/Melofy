@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/miscellaneous.dart';
 import 'package:melofy/view_melodies_card.dart';
-import 'package:melofy/app.dart';
 
 class ViewMelodiesMain extends StatefulWidget {
   ViewMelodiesMain({Key key}) : super(key: key);
@@ -17,7 +16,7 @@ class ViewMelodiesMain extends StatefulWidget {
 class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
 
   String searchQuery = '';
-  bool displayFavouritesOnly = false;
+  int displayFavouritesOnly = 0;
   bool isFiltered = false;
 
   void initiateSearch(String val) {
@@ -29,14 +28,13 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
     @override
   void initState() {
     super.initState();
+
   }
 
   @override
   void dispose() {
     super.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +52,66 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
             appBar: AppBar(
               title: Text(
                 'MELODIES',
-                style: TextStyle(color: Color(0xff2699fb)),
+                style: GoogleFonts.arimo(
+                  color: ColourConfig().dodgerBlue,
+                  fontWeight: FontWeight.bold
+                ),
                 textScaleFactor: SizeConfig.safeBlockVertical * 0.1,
               ),
               centerTitle: true,
               elevation: 0.0,
               backgroundColor: Colors.white,
+              actions: <Widget>[
+                GestureDetector(
+                    child: Container(
+                      padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 4),
+                      child:Icon(
+                        isFiltered ? Icons.filter_alt_rounded : Icons.filter_alt_outlined,
+                        color: ColourConfig().dodgerBlue
+                      ),
+                    ),
+
+                    onTap: () {
+                      setState(() {
+                        if (displayFavouritesOnly == 0){
+                          displayFavouritesOnly = 1;
+                          isFiltered = true;
+                          final snackBar = SnackBar(
+                          content: Text('Showing Favourite Melodies Only'),
+                          action: SnackBarAction(
+                            label: 'Close',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                        else {
+                          displayFavouritesOnly = 0;
+                          isFiltered = false;
+
+                          final snackBar = SnackBar(
+                          content: Text('Showing All Melodies'),
+                          action: SnackBarAction(
+                            label: 'Close',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      });
+
+                    }),
+              ],
             ),
             body: Column(
               children: <Widget>[
@@ -108,18 +160,45 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                         child: StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
                                   .collection('generatedMelodies')
+                                  .orderBy("isFavourite")
                                   .where("userID",
                                       isEqualTo: currentUserId)
+                                  .where("isFavourite",
+                                      isGreaterThanOrEqualTo: displayFavouritesOnly)
                                   .snapshots(),
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (snapshot.hasError)
                               return new Text('Error: ${snapshot.error}');
+                            if (!snapshot.hasData || snapshot.data.docs.isEmpty) {
+                              return new Column(
+                                children: [
+                                  SizedBox(
+                                    height: SizeConfig.blockSizeVertical * 12
+                                  ),
+                                  Image(
+                                    image: AssetImage("assets/undraw_compose_music_ovo2.png")),
+                                  SizedBox(
+                                    height: SizeConfig.blockSizeVertical * 2
+                                  ),
+                                  Text("Once you've generated a new melody,\nyou'll see it listed here",
+                                      textScaleFactor:
+                                          SizeConfig.safeBlockVertical * 0.14,
+                                      style: GoogleFonts.arimo(
+                                        color: ColourConfig().frenchPass,
+                                        height: 1.5
+                                      ),
+                                      textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              );
+                            }
+
                             switch (snapshot.connectionState) {
                               case ConnectionState.waiting:
-                                return LoadingCircle();
-                              default:
-                                return new ListView(
+                                return LoadingCircle(); 
+
+                                default: return new ListView(
                                   children: snapshot.data.docs
                                       .map((DocumentSnapshot document) {
                                     return new Dismissible(
@@ -167,6 +246,9 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                           },
                         ))),
               ],
-            )));
+            )
+            )
+            );
+
   }
 }

@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/miscellaneous.dart';
 import 'package:flutter/material.dart';
 import 'tab_item.dart';
@@ -13,7 +14,10 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      selectedItemColor: Colors.black,
+      unselectedItemColor: Colors.brown,
       type: BottomNavigationBarType.fixed,
       items: tabs
           .map(
@@ -33,6 +37,7 @@ class BottomNavigation extends StatelessWidget {
   BottomNavigationBarItem _buildItem(
       {int index, IconData icon, String tabName}) {
     return BottomNavigationBarItem(
+      
       icon: Padding(
         padding: EdgeInsets.only(bottom: 4),
         child: Icon(icon, color: ColourConfig().dodgerBlue),
@@ -40,12 +45,11 @@ class BottomNavigation extends StatelessWidget {
 
       title: Text(
         tabName,
-        style: TextStyle(
+        style: GoogleFonts.arimo(
           color: ColourConfig().dodgerBlue,
           fontSize: 12,
         ),
       ),
-      
     );
   }
 }

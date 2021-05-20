@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/miscellaneous.dart'
     show EmailValidator, SizeConfig, ColourConfig;
@@ -19,12 +20,16 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
     return WillPopScope(
         onWillPop: () => Future.value(false),
         child: Scaffold(
+            resizeToAvoidBottomInset: true,
             body: SingleChildScrollView(
           child: Container(
+              color: Colors.white,
+              height: SizeConfig.screenHeight,
               child: Form(
                   key: _formKey,
                   child: Column(children: <Widget>[
@@ -32,24 +37,20 @@ class _LoginPageState extends State<LoginPage> {
                       children: <Widget>[
                         Container(
                           width: SizeConfig.screenWidth,
-                          height: SizeConfig.blockSizeVertical * 42,
+                          height: SizeConfig.blockSizeVertical * 46,
                           child: Container(
-                              color: ColourConfig().aliceBlue,
+                              color: Colors.white,
                               constraints: BoxConstraints.expand(),
                               child: Column(
+
                                 children: <Widget>[
-                                  SizedBox(
-                                      height: SizeConfig.blockSizeVertical * 6),
-                                  Icon(
-                                    Icons.music_note_sharp,
-                                          size: SizeConfig.blockSizeVertical * 20,
-                                          color: ColourConfig().dodgerBlue,
-                                        ),
-                                  SizedBox(
-                                      height: SizeConfig.blockSizeVertical * 6),
-                                  Text('Melofy'.toUpperCase(),
+                                  SizedBox(height: SizeConfig.blockSizeVertical * 3),
+                                  Image.asset("assets/undraw_unlock_24mb.png"),
+                                  SizedBox(height: SizeConfig.blockSizeVertical * 3),
+                                  Text('Welcome Back',
+                                      textAlign: TextAlign.left,
                                       textScaleFactor:
-                                          SizeConfig.safeBlockVertical * 0.34,
+                                          SizeConfig.safeBlockVertical * 0.28,
                                       style: TextStyle(
                                         color: ColourConfig().dodgerBlue,
                                         fontWeight: FontWeight.bold,
@@ -63,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(
-                              top: SizeConfig.blockSizeHorizontal * 10,
+                              top: SizeConfig.blockSizeHorizontal * 14,
                               left: SizeConfig.blockSizeHorizontal * 10,
                               right: SizeConfig.blockSizeHorizontal * 10),
                           child: Text('Email',
@@ -163,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text("LOGIN",
                                 textAlign: TextAlign.center,
                                 textScaleFactor:
-                                    SizeConfig.safeBlockVertical * 0.16,
+                                    SizeConfig.safeBlockVertical * 0.14,
                                 style: GoogleFonts.arimo(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold)),

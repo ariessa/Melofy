@@ -246,7 +246,7 @@ Future uploadRecordedAudioFileToAzure(BuildContext context) async {
                 'year': generatedMelodyYear,
                 'hour': generatedMelodyHour,
                 'minute': generatedMelodyMinute,
-                'isFavourite': false
+                'isFavourite': 0
             });
 
             getDuration(path);
@@ -257,8 +257,9 @@ Future uploadRecordedAudioFileToAzure(BuildContext context) async {
               filePath: path,
               durationOfRecording: _durationOfRecording,
               melodyName: _wordPair.asPascalCase,
-              isFavourite: false,
-              melodyId: generatedMelodyID)));
+              isFavourite: 0,
+              melodyId: generatedMelodyID,
+              isCloseButtonVisible: true)));
 
           } on AzureStorageException catch(ex){
             print(ex.message);

@@ -26,10 +26,12 @@ class _RegisterPageState extends State<RegisterPage> {
     return WillPopScope(
         onWillPop: () => Future.value(false),
         child: Scaffold(
-          body: SingleChildScrollView(
-              child: Container(
+          body: Container(
+                color: Colors.white,
                 height: SizeConfig.screenHeight,
                 child: Form(
+              child: SingleChildScrollView(
+
             key: _formKey,
             child: Column(
               children: <Widget>[
@@ -40,11 +42,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: Container(
                               child: Column(
                                 children: <Widget>[
+                                  SizedBox(height: SizeConfig.blockSizeVertical * 1),
+                                  Image.asset("assets/undraw_dreamer_gxxi.png"),
                                   SizedBox(
-                                      height: SizeConfig.blockSizeVertical * 10),
+                                      height: SizeConfig.blockSizeVertical * 2),
                                   Text('Create an Account',
                                       textScaleFactor:
-                                          SizeConfig.safeBlockVertical * 0.25,
+                                          SizeConfig.safeBlockVertical * 0.22,
                                       style: GoogleFonts.arimo(
                                         color: ColourConfig().dodgerBlue,
                                         fontWeight: FontWeight.bold
@@ -58,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(
-                              top: SizeConfig.blockSizeHorizontal * 20,
+                              top: SizeConfig.blockSizeHorizontal * 16,
                               left: SizeConfig.blockSizeHorizontal * 10,
                               right: SizeConfig.blockSizeHorizontal * 10),
                           child: Text('Name',
@@ -97,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             )),
                       ),
-                      SizedBox(height: SizeConfig.blockSizeHorizontal * 3),
+                      SizedBox(height: SizeConfig.blockSizeHorizontal * 5),
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(
@@ -143,7 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             )),
                       ),
-                      SizedBox(height: SizeConfig.blockSizeHorizontal * 3),
+                      SizedBox(height: SizeConfig.blockSizeHorizontal * 5),
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(
@@ -183,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     borderSide: new BorderSide(
                                         color: ColourConfig().frenchPass)))),
                       ),
-                      SizedBox(height: SizeConfig.blockSizeHorizontal * 3),
+                      SizedBox(height: SizeConfig.blockSizeHorizontal * 5),
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(
@@ -234,7 +238,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               .toList(),
                         ),
                       ),
-                      SizedBox(height: SizeConfig.blockSizeHorizontal * 6),
+                      SizedBox(height: SizeConfig.blockSizeHorizontal * 8),
                       GestureDetector(
                           child: Container(
                             width: double.infinity,
@@ -251,7 +255,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             child: Text("REGISTER",
                                 textAlign: TextAlign.center,
                                 textScaleFactor:
-                                    SizeConfig.safeBlockVertical * 0.16,
+                                    SizeConfig.safeBlockVertical * 0.14,
                                 style: GoogleFonts.arimo(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold)),
@@ -305,10 +309,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                 padding: EdgeInsets.only(
                                     top: SizeConfig.blockSizeHorizontal * 4,
                                     left: SizeConfig.blockSizeHorizontal * 10,
-                                    right: SizeConfig.blockSizeHorizontal * 10),
+                                    right: SizeConfig.blockSizeHorizontal * 10,
+                                    bottom: SizeConfig.blockSizeHorizontal * 16),
                                 child: Text("Already have an account?",
                                     textScaleFactor:
-                                        SizeConfig.safeBlockVertical * 0.13,
+                                        SizeConfig.safeBlockVertical * 0.12,
                                     textAlign: TextAlign.start,
                                     overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.arimo(
@@ -319,11 +324,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   MaterialPageRoute(
                                       builder: (context) => LoginPage())),
                             ),
-                      
+                      // SizedBox(height: SizeConfig.blockSizeHorizontal * 8),
                       ],
             ),
               ]))),
         )
+        
+        
         )
     );
   }
