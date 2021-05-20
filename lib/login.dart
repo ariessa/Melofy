@@ -44,9 +44,9 @@ class _LoginPageState extends State<LoginPage> {
                               child: Column(
 
                                 children: <Widget>[
-                                  SizedBox(height: SizeConfig.blockSizeVertical * 1),
+                                  SizedBox(height: SizeConfig.blockSizeVertical * 3),
                                   Image.asset("assets/undraw_unlock_24mb.png"),
-                                  SizedBox(height: SizeConfig.blockSizeVertical * 2),
+                                  SizedBox(height: SizeConfig.blockSizeVertical * 3),
                                   Text('Welcome Back',
                                       textAlign: TextAlign.left,
                                       textScaleFactor:
@@ -55,22 +55,6 @@ class _LoginPageState extends State<LoginPage> {
                                         color: ColourConfig().dodgerBlue,
                                         fontWeight: FontWeight.bold,
                                       ))
-                                  // SizedBox(
-                                  //     height: SizeConfig.blockSizeVertical * 6),
-                                  // Icon(
-                                  //   Icons.music_note_sharp,
-                                  //         size: SizeConfig.blockSizeVertical * 20,
-                                  //         color: ColourConfig().dodgerBlue,
-                                  //       ),
-                                  // SizedBox(
-                                  //     height: SizeConfig.blockSizeVertical * 6),
-                                  // Text('Melofy'.toUpperCase(),
-                                  //     textScaleFactor:
-                                  //         SizeConfig.safeBlockVertical * 0.34,
-                                  //     style: TextStyle(
-                                  //       color: ColourConfig().dodgerBlue,
-                                  //       fontWeight: FontWeight.bold,
-                                  //     ))
                                 ],
                               )),
                         ),
@@ -80,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(
-                              top: SizeConfig.blockSizeHorizontal * 10,
+                              top: SizeConfig.blockSizeHorizontal * 14,
                               left: SizeConfig.blockSizeHorizontal * 10,
                               right: SizeConfig.blockSizeHorizontal * 10),
                           child: Text('Email',

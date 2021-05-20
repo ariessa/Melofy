@@ -87,8 +87,9 @@ class _LogoutPageState extends State<LogoutPage> {
                                     ),
                                     onTap: () async {
                                       await auth.FirebaseAuth.instance.signOut();
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) => MyApp()));
+                                      Navigator.of(context, rootNavigator: true)
+                                        .pushReplacement(MaterialPageRoute(
+                                          builder: (context) => new MyApp()));
                                     },
                                   )
                                 ]

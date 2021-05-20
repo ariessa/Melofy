@@ -18,7 +18,6 @@ import 'package:wave/wave.dart';
 import 'app.dart';
 import 'package:share_extend/share_extend.dart';
 
-
 // Command to enable microphone in Android emulator
 // adb emu avd hostmicon
 

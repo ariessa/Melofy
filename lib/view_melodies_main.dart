@@ -154,7 +154,7 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (snapshot.hasError)
                               return new Text('Error: ${snapshot.error}');
-                            if (!snapshot.hasData)
+                            if (!snapshot.hasData || snapshot.data.docs.isEmpty) {
                               return new Column(
                                 children: [
                                   SizedBox(
@@ -176,6 +176,8 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                                   ),
                                 ],
                               );
+                            }
+
                             switch (snapshot.connectionState) {
                               case ConnectionState.waiting:
                                 return LoadingCircle(); 

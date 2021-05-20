@@ -310,7 +310,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     top: SizeConfig.blockSizeHorizontal * 4,
                                     left: SizeConfig.blockSizeHorizontal * 10,
                                     right: SizeConfig.blockSizeHorizontal * 10,
-                                    bottom: SizeConfig.blockSizeHorizontal * 10),
+                                    bottom: SizeConfig.blockSizeHorizontal * 16),
                                 child: Text("Already have an account?",
                                     textScaleFactor:
                                         SizeConfig.safeBlockVertical * 0.12,
