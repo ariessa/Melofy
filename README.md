@@ -48,6 +48,16 @@ The features of this app are as follows:
 
 </br> 
 
+## Prerequisites
+
+Melofy app requires Melofy API to function as intended. This is because the melody generation part is in Melofy API. 
+
+1. Deploy [Melofy API](https://github.com/ariessa/melofy-api) locally.
+
+2. Change hostname in Melofy app when sending POST request.
+
+</br> 
+
 ## Building and Releasing the APKs
 
 > **_NOTE:_** If release builds on Android fail and mentions `flutter_ffmpeg`, make sure that mavenCentral() is defined as a repository in your build.gradle and it is listed before jcenter().
@@ -92,7 +102,7 @@ Or, you can download the fat APK that can be installed on `ARM`, `ARM64`, and `x
 
 > **_WARNING I:_** There is no apk for x86 Android. This is because Flutter does not currently support building for x86 Android. Refer to this [issue](https://github.com/flutter/flutter/issues/9253) on Github.
 
-> **_WARNING II:_** These builds are intended for debugging purposes only. Usage outside of debugging may cause unexpected crashes and performance lags. 
+> **_WARNING II:_** These builds are intended for testing purposes only. Usage outside of testing may cause unexpected crashes and performance lags. 
 
 
 
