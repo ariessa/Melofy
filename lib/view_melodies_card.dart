@@ -2,10 +2,8 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:melofy/miscellaneous.dart';
-import 'package:melofy/view_melody.dart';
 import 'package:melofy/view_generated_melody.dart';
 import 'package:path_provider/path_provider.dart';
-import 'app.dart';
 
 class MelodyCard extends StatelessWidget {
   MelodyCard(
@@ -59,8 +57,8 @@ class MelodyCard extends StatelessWidget {
               filePath: path,
               melodyName: melodyName,
               melodyId: melodyId,
-              isFavourite: isFavourite)));
-
+              isFavourite: isFavourite,
+              isCloseButtonVisible: false)));
             },   
             child: Container(
                 padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 1),

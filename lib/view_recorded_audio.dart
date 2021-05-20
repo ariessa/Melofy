@@ -570,12 +570,11 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                   height: SizeConfig.screenHeight,
                   width: SizeConfig.screenWidth,
                   color: ColourConfig().frenchPass,
-                  child: new CupertinoAlertDialog(
+                  child: new AlertDialog(
                     title: new Text(dialogTitle),
                     content: new Text(dialogInfo),
                     actions: <Widget>[
-                      CupertinoDialogAction(
-                        isDefaultAction: true,
+                      TextButton(
                         child: Text("Yes"),
                         onPressed: () {
                           // Navigate to Generating Melody screen
@@ -583,7 +582,7 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                             builder: (context) => GeneratingMelody(filePath : filePath)));
                         },
                       ),
-                      CupertinoDialogAction(
+                      TextButton(
                         child: Text("No"),
                         onPressed: () {
 
@@ -613,12 +612,11 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                   height: SizeConfig.screenHeight,
                   width: SizeConfig.screenWidth,
                   color: ColourConfig().frenchPass,
-                  child: new CupertinoAlertDialog(
+                  child: new AlertDialog(
                     title: new Text(dialogTitle),
                     content: new Text(dialogInfo),
                     actions: <Widget>[
-                      CupertinoDialogAction(
-                        isDefaultAction: true,
+                      TextButton(
                         child: Text("Yes"),
                         onPressed: () {
                           // TODO: Popup message that says recorded audio has been deleted
@@ -630,7 +628,7 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                             builder: (context) => RecordAudio()));
                         },
                       ),
-                      CupertinoDialogAction(
+                      TextButton(
                         child: Text("No"),
                         onPressed: () {
                           setState(() {

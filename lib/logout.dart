@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:melofy/login.dart';
 import 'package:melofy/main.dart';
 import 'package:melofy/miscellaneous.dart'
     show SizeConfig, ColourConfig;
@@ -26,7 +27,10 @@ class _LogoutPageState extends State<LogoutPage> {
             appBar: AppBar(
               title: Text(
                 'LOG OUT',
-                style: TextStyle(color: Color(0xff2699fb)),
+                style: GoogleFonts.arimo(
+                  color: ColourConfig().dodgerBlue,
+                  fontWeight: FontWeight.bold,
+                ),
                 textScaleFactor: SizeConfig.safeBlockVertical * 0.1,
               ),
               centerTitle: true,
@@ -51,10 +55,9 @@ class _LogoutPageState extends State<LogoutPage> {
                                   ),
                                   Text('Do you still want to log out?',
                                       textScaleFactor:
-                                          SizeConfig.safeBlockVertical * 0.19,
-                                      style: TextStyle(
-                                        color: ColourConfig().frenchPass,
-                                        // fontWeight: FontWeight.bold,
+                                          SizeConfig.safeBlockVertical * 0.14,
+                                      style: GoogleFonts.arimo(
+                                        color: ColourConfig().frenchPass  
                                       )
                                   ),
                                   SizedBox(
@@ -76,7 +79,7 @@ class _LogoutPageState extends State<LogoutPage> {
                                       child: Text("Yes, log me out please",
                                           textAlign: TextAlign.center,
                                           textScaleFactor:
-                                              SizeConfig.safeBlockVertical * 0.16,
+                                              SizeConfig.safeBlockVertical * 0.14,
                                           style: GoogleFonts.arimo(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold)

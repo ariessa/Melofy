@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:melofy/record_audio.dart';
 import 'package:melofy/view_in-app_tutorials.dart';
 import 'package:melofy/view_melodies_main.dart';
-import 'package:melofy/view_favourites.dart';
 import 'tab_item.dart';
 import 'bottom_navigation.dart';
 import 'package:melofy/logout.dart';
@@ -23,11 +22,6 @@ class AppState extends State<App> {
       tabName: "Melodies",
       icon: Icons.music_note,
       page: ViewMelodiesMain(),
-    ),
-    TabItem(
-      tabName: "Favourites",
-      icon: Icons.favorite_border_rounded,
-      page: ViewFavouritesMain(),
     ),
     TabItem(
       tabName: "Tutorials",

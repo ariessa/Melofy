@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/circle_thumb_shape.dart';
 import 'miscellaneous.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:melofy/view_melodies_main.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
@@ -72,12 +71,13 @@ class ViewGeneratedMelody extends StatefulWidget {
   final String filePath;
   final String durationOfRecording;
   final String melodyName;
-  final bool isFavourite;
+  final int isFavourite;
   final String melodyId;
+  final bool isCloseButtonVisible;
 
   const ViewGeneratedMelody(
       {Key key, this.filePath, this.durationOfRecording, this.melodyName,
-      this.isFavourite, this.melodyId}) 
+      this.isFavourite, this.melodyId, this.isCloseButtonVisible}) 
       : super(key: key); 
 
   @override
@@ -93,6 +93,7 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
   bool disableShareButton = false;
   Color shareButtonColour = ColourConfig().dodgerBlue;
   File audioFile;
+  int isFavourite;
 
 
   _buildCard({
@@ -169,7 +170,13 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
     setState(() {
       _endPlayerTxt = widget.durationOfRecording;
       _melodyName = widget.melodyName;
-      favouriteThisMelody = widget.isFavourite;
+      if (widget.isFavourite == 1) {
+        favouriteThisMelody = true;
+      }
+      else {
+        favouriteThisMelody = false;
+      }
+      isFavourite = widget.isFavourite;
       generatedMelodyID = widget.melodyId;
       audioFile = File(widget.filePath);
     });
@@ -420,25 +427,28 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
                                         padding: EdgeInsets.only(
                                           top: SizeConfig.blockSizeVertical * 1,
                                         ),
-                                        child: ClipOval(
-                                        child: TextButton(
-                                          style: TextButton.styleFrom(
-                                            backgroundColor: ColourConfig().aliceBlue,
-                                            shape: CircleBorder(),
-                                          ),
-                                          child: Icon(
-                                            Icons.clear_rounded,
-                                            size: SizeConfig.blockSizeVertical * 4,
-                                            color: ColourConfig().dodgerBlue,
-                                          ),
-                                          onPressed: () {
+                                        child: Visibility(
+                                          visible: widget.isCloseButtonVisible,
+                                          child: ClipOval(
+                                            child: TextButton(
+                                              style: TextButton.styleFrom(
+                                                backgroundColor: ColourConfig().aliceBlue,
+                                                shape: CircleBorder(),
+                                              ),
+                                              child: Icon(
+                                                Icons.clear_rounded,
+                                                size: SizeConfig.blockSizeVertical * 4,
+                                                color: ColourConfig().dodgerBlue,
+                                              ),
+                                              onPressed: () {
 
-                                            // Navigate to Record Audio screen
-                                            return Navigator.pushReplacement(context, MaterialPageRoute(
-                                              builder: (context) => App()));
-                                          },
+                                                // Navigate to Record Audio screen
+                                                return Navigator.pushReplacement(context, MaterialPageRoute(
+                                                  builder: (context) => App()));
+                                              },
+                                            ),
+                                          ),
                                         ),
-                                      ), 
                                       )                                     
                                     ],
                                   ),
@@ -540,15 +550,17 @@ class _ViewGeneratedMelodyState extends State<ViewGeneratedMelody> {
                                           setState(() {
                                             if(favouriteThisMelody == true){
                                               favouriteThisMelody = false;
+                                              isFavourite = 0;
 
                                             } else {
                                               favouriteThisMelody = true;
+                                              isFavourite = 1;
                                             }
                                             // Update isFavourite
                                               FirebaseFirestore.instance.collection('generatedMelodies')
                                                 .doc(generatedMelodyID)
                                                 .update({
-                                                  'isFavourite': favouriteThisMelody,
+                                                  'isFavourite': isFavourite,
 
                                               });
                                           });

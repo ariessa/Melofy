@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:melofy/miscellaneous.dart';
-import 'package:melofy/app.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -32,7 +31,6 @@ final List<Widget> imageSliders = imgList.map((item) => Container(
     margin: EdgeInsets.all(5.0),
     child: Column(
         children: <Widget>[
-          // SizedBox(height: SizeConfig.blockSizeVertical * 2),
           ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(5.0)),
           // SizedBox(height: SizeConfig.blockSizeVertical * 4),
@@ -53,7 +51,6 @@ final List<Widget> imageSliders = imgList.map((item) => Container(
               ),
         SizedBox(height: SizeConfig.blockSizeVertical * 5),
         Container(
-          // color: ColourConfig().aliceBlue,
           padding: EdgeInsets.only(
             right: SizeConfig.blockSizeHorizontal * 3.5,
             left: SizeConfig.blockSizeHorizontal * 3.5
@@ -106,7 +103,10 @@ class _ViewInAppTutorialsState extends State<ViewInAppTutorials> {
           appBar: AppBar(
               title: Text(
                 'Tutorials'.toUpperCase(),
-                style: TextStyle(color: Color(0xff2699fb)),
+                style: GoogleFonts.arimo(
+                  color: ColourConfig().dodgerBlue,
+                  fontWeight: FontWeight.bold,
+                ),
                 textScaleFactor: SizeConfig.safeBlockVertical * 0.1,
               ),
               centerTitle: true,
@@ -119,11 +119,12 @@ class _ViewInAppTutorialsState extends State<ViewInAppTutorials> {
                 color: Colors.white,
               child: Column(
                 children: <Widget>[
+                  SizedBox(height: SizeConfig.blockSizeVertical * 2),
                   CarouselSlider(
                     items: imageSliders,
                     options: CarouselOptions(
                       enlargeCenterPage: true, 
-                      height: 800,
+                      height: SizeConfig.blockSizeVertical * 100,
                       aspectRatio: 2.0),
                     carouselController: _controller,
                   ),
