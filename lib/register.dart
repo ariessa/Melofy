@@ -30,9 +30,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 color: Colors.white,
                 height: SizeConfig.screenHeight,
                 child: Form(
+                key: _formKey,
               child: SingleChildScrollView(
-
-            key: _formKey,
             child: Column(
               children: <Widget>[
                   Column(

@@ -158,7 +158,18 @@ class _ViewMelodiesMainState extends State<ViewMelodiesMain> {
                         EdgeInsets.all(SizeConfig.blockSizeHorizontal * 4),
                         color: Colors.white,
                         child: StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
+                          stream: searchQuery != "" && searchQuery != null
+                              ? FirebaseFirestore.instance
+                                  .collection('generatedMelodies')
+                                  .orderBy("isFavourite")
+                                  .where("searchIndex",
+                                      arrayContains: searchQuery)
+                                  .where("userID",
+                                      isEqualTo: currentUserId)
+                                  .where("isFavourite",
+                                      isGreaterThanOrEqualTo: displayFavouritesOnly)                                  
+                                  .snapshots()
+                              : FirebaseFirestore.instance
                                   .collection('generatedMelodies')
                                   .orderBy("isFavourite")
                                   .where("userID",

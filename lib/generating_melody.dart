@@ -235,6 +235,15 @@ Future uploadRecordedAudioFileToAzure(BuildContext context) async {
             ref.putData(await file6.readAsBytes(), metadata);
             print("======> Uploaded melody to Cloud Storage"); 
 
+            List<String> splitList = melodyName.split(" ");
+            List<String> indexList = [];
+
+            for (int i = 0; i < splitList.length; i++) {
+              for (int y = 1; y < splitList[i].length + 1; y++) {
+                  indexList.add(splitList[i] .substring(0, y).toLowerCase());
+              }
+            }
+
             // Added generatedMelody to generatedMelodies/$currentUserId
             FirebaseFirestore.instance.collection('generatedMelodies')
               .doc(generatedMelodyID)
@@ -246,12 +255,13 @@ Future uploadRecordedAudioFileToAzure(BuildContext context) async {
                 'year': generatedMelodyYear,
                 'hour': generatedMelodyHour,
                 'minute': generatedMelodyMinute,
-                'isFavourite': 0
+                'isFavourite': 0,
+                'searchIndex': indexList,
             });
 
             getDuration(path);
 
-            // Navigate to Play Recorded Audio page
+            // Navigate to View Generated Melody page
             Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) => ViewGeneratedMelody(
               filePath: path,
