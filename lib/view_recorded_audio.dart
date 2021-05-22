@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:melofy/app.dart';
 import 'package:melofy/circle_thumb_shape.dart';
 import 'package:melofy/generating_melody.dart';
 import 'package:melofy/record_audio.dart';
@@ -160,14 +161,14 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
 
   @override
   void initState() {
-    super.initState();
+
     setState(() {
       getDuration();
-      _endPlayerTxt = _durationOfRecording;
-      print("_durationOfRecording: $_endPlayerTxt");
+      // _durationOfRecording = widget.durationOfRecording;
+      print("_durationOfRecording: $_durationOfRecording");
       init();
     });
-
+    super.initState();
   }
 
   void cancelPlayerSubscriptions() {
@@ -420,8 +421,8 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
 
                                   Container(
                                     padding: EdgeInsets.only(
-                                      left: SizeConfig.blockSizeVertical * 9.4,
-                                      right: SizeConfig.blockSizeVertical * 6
+                                      left: SizeConfig.blockSizeVertical * 4,
+                                      right: SizeConfig.blockSizeVertical * 2
                                     ),
                                     height: 30.0,
                                     child: SliderTheme(
@@ -443,22 +444,32 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
                                   )),
                                   Container(
                                     padding: EdgeInsets.only(
-                                      left: SizeConfig.blockSizeVertical * 8,
-                                      right: SizeConfig.blockSizeVertical * 8
+                                      left: SizeConfig.blockSizeVertical * 4,
+                                      right: SizeConfig.blockSizeVertical * 4
                                     ),
-                                    child:Text(_playerTxt,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,                                      
+                                      children: [
+                                        Text(_playerTxt,
                                           textScaleFactor: SizeConfig.blockSizeVertical * 0.16,
                                           style: GoogleFonts.arimo(
                                             color: ColourConfig().dodgerBlue)
                                           ),
+                                        Text(
+                                          (_durationOfRecording == null) ? "00:00" : _durationOfRecording,
+                                          textScaleFactor: SizeConfig.blockSizeVertical * 0.16,
+                                          style: GoogleFonts.arimo(
+                                            color: ColourConfig().dodgerBlue)),
+                                      ]
+                                    )
 
                                   ),
                                   SizedBox(height: SizeConfig.blockSizeVertical * 4),
 
                                   Container(
                                     padding: EdgeInsets.only(
-                                      left: SizeConfig.blockSizeVertical * 8,
-                                      right: SizeConfig.blockSizeVertical * 8
+                                      left: SizeConfig.blockSizeVertical * 4,
+                                      right: SizeConfig.blockSizeVertical * 4
                                     ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -588,7 +599,7 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
 
                           // Navigate to Record Audio screen
                           Navigator.pushReplacement(context, MaterialPageRoute(
-                            builder: (context) => RecordAudio()));
+                            builder: (context) => App()));
                         },
                       )
                     ],
@@ -625,7 +636,7 @@ class _ViewRecordedAudioState extends State<ViewRecordedAudio> {
 
                           // Navigate to Record Audio screen
                           Navigator.pushReplacement(context, MaterialPageRoute(
-                            builder: (context) => RecordAudio()));
+                            builder: (context) => App()));
                         },
                       ),
                       TextButton(
