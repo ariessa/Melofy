@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:melofy/app.dart';
 import 'package:melofy/login.dart';
 import 'package:melofy/main.dart';
 import 'package:melofy/miscellaneous.dart'
@@ -90,6 +91,9 @@ class _LogoutPageState extends State<LogoutPage> {
                                       Navigator.of(context, rootNavigator: true)
                                         .pushReplacement(MaterialPageRoute(
                                           builder: (context) => new MyApp()));
+
+                                      // Every time log in after log out, go to Melodies screen
+                                      AppState.currentTab = 0;
                                     },
                                   )
                                 ]
