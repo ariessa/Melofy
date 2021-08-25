@@ -104,5 +104,20 @@ Or, you can download the fat APK that can be installed on `ARM`, `ARM64`, and `x
 
 > **_WARNING II:_** These builds are intended for testing purposes only. Usage outside of testing may cause unexpected crashes and performance lags. 
 
+</br> 
 
+## Database Examples
 
+### Firebase Cloud Firestore
+
+<img src="https://github.com/ariessa/Melofy/blob/master/Firebase-Cloud-Firestore-1.png" title="Generated Melodies Info I">
+
+<img src="https://github.com/ariessa/Melofy/blob/master/Firebase-Cloud-Firestore-2.png" title="Generated Melodies Info II">
+
+<img src="https://github.com/ariessa/Melofy/blob/master/Firebase-Cloud-Firestore-3.png" title="Users">
+
+</br>
+
+### Firebase Cloud Storage
+
+<img src="https://github.com/ariessa/Melofy/blob/master/Firebase-Cloud-Firestore-1.png" title="Generated Melodies' Files">
